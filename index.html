@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F7F7F5">
-  <title>Expense — Offline Expense Tracker</title>
+  <title>Spendly — Offline Expense Tracker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -72,21 +72,33 @@
     <!-- TOP BAR -->
 
     <header class="topbar">
+<div class="mobile-brand">
+  <img
+    src="assets/logo.png"
+    alt="Spendly Logo"
+    class="mobile-brand-logo"
+  >
 
-      <div class="mobile-brand">
-        <div class="brand-mark">E</div>
-        <strong>Expense</strong>
-      </div>
+  <div class="mobile-brand-text">
+    <div class="mobile-brand-name">
+      Spend<span>ly</span>
+    </div>
 
-      <div class="topbar-spacer"></div>
+    <div class="mobile-brand-tagline">
+      Track • Plan • Grow
+    </div>
+  </div>
+</div>
+  </div>
 
-      <button class="add-expense-btn primary-btn" id="openExpenseModal">
-        <span>+</span>
-        Add Expense
-      </button>
+  <div class="topbar-spacer"></div>
 
-    </header>
+  <button class="add-expense-btn primary-btn" id="openExpenseModal">
+    <span>+</span>
+    Add Expense
+  </button>
 
+</header>
 
     <!-- ================= DASHBOARD ================= -->
 

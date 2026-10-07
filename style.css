@@ -1457,11 +1457,11 @@ form select:focus {
     padding: 4px 8px 28px;
 }
 
-.brand-logo {
-    width: 34px;
-    height: 34px;
-    object-fit: contain;
-    border-radius: 10px;
+@media (max-width: 800px) {
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 .brand span {
@@ -1485,8 +1485,8 @@ form select:focus {
 }
 
 .brand-logo {
-  width: 34px;
-  height: 34px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
   border-radius: 10px;
 }
@@ -1515,4 +1515,136 @@ form select:focus {
 
 .brand-main span .brand-green {
   color: #22A06B !important;
+}
+.mobile-brand {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .mobile-brand img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .mobile-brand-name {
+    font-size: 21px;
+    font-weight: 750;
+    color: #111;
+  }
+
+  .mobile-brand-name span {
+    color: #22A06B;
+  }
+
+  .mobile-brand-tagline {
+    margin-top: 2px;
+    font-size: 9px;
+    letter-spacing: .8px;
+    color: #858585;
+  }
+}
+/* ================= MOBILE BRAND ================= */
+
+.mobile-brand {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.mobile-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-brand-name {
+  font-size: 19px;
+  font-weight: 750;
+  line-height: 1;
+  color: #111;
+}
+
+.mobile-brand-name span {
+  color: #22A06B;
+}
+
+.mobile-brand-tagline {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .8px;
+  color: #858585;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 800px) {
+
+  .mobile-brand {
+    display: flex;
+  }
+
+  .mobile-brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+}
+.mobile-brand {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.mobile-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mobile-brand-name {
+  font-size: 20px;
+  font-weight: 750;
+  color: #111;
+  line-height: 1;
+}
+
+.mobile-brand-name span {
+  color: #22A06B;
+}
+
+.mobile-brand-tagline {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #858585;
+}
+
+@media (max-width: 800px) {
+  .mobile-brand {
+    display: flex;
+  }
 }
