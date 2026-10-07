@@ -1,0 +1,17 @@
+{
+  "name": "Spendly - Track Plan Grow",
+  "short_name": "Spendly",
+  "description": "A simple offline expense tracker.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F7F7F5",
+  "theme_color": "#22A06B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

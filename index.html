@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#22A06B">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F7F7F5">
+  <title>Expense — Offline Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar">
+<div class="brand">
+  <div class="brand-main">
+    <img src="assets/logo.png" alt="Spendly Logo" class="brand-logo">
+    <span>Spend<span class="brand-green">ly</span></span>
+  </div>
+
+  <div class="brand-tagline">Track • Plan • Grow</div>
+</div>
+
+    <nav class="sidebar-nav">
+
+      <button class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </button>
+
+      <button class="nav-item" data-page="transactions">
+        <span class="nav-icon">≡</span>
+        Transactions
+      </button>
+
+      <button class="nav-item" data-page="analytics">
+        <span class="nav-icon">◒</span>
+        Analytics
+      </button>
+
+      <button class="nav-item" data-page="budgets">
+        <span class="nav-icon">▣</span>
+        Budgets
+      </button>
+
+      <button class="nav-item" data-page="settings">
+        <span class="nav-icon">⚙</span>
+        Settings
+      </button>
+
+    </nav>
+
+    <div class="offline-status">
+      <span></span>
+      Offline Mode
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="main">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+      <div class="mobile-brand">
+        <div class="brand-mark">E</div>
+        <strong>Expense</strong>
+      </div>
+
+      <div class="topbar-spacer"></div>
+
+      <button class="add-expense-btn primary-btn" id="openExpenseModal">
+        <span>+</span>
+        Add Expense
+      </button>
+
+    </header>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section class="page active" id="dashboard">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">Overview</p>
+          <h1>Dashboard</h1>
+          <p class="page-subtitle">
+            Your money, completely under your control.
+          </p>
+        </div>
+
+        <div class="month-label" id="currentMonth">
+          October 2026
+        </div>
+
+      </div>
+
+
+      <!-- SUMMARY -->
+
+      <div class="summary-grid">
+
+        <div class="summary-card main-summary">
+          <span class="summary-label">Total Spent</span>
+          <strong class="summary-value" id="totalSpent">₹0</strong>
+          <span class="summary-note">This month</span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Budget</span>
+          <strong class="summary-value" id="budgetTotal">₹0</strong>
+          <span class="summary-note" id="budgetNote">No budget set</span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Transactions</span>
+          <strong class="summary-value" id="transactionCount">0</strong>
+          <span class="summary-note">Recorded expenses</span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Remaining</span>
+          <strong class="summary-value" id="remainingBudget">₹0</strong>
+          <span class="summary-note" id="remainingNote">
+            Set a budget to track
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- GRAPH + CATEGORIES -->
+
+      <div class="dashboard-grid">
+
+        <div class="panel chart-panel">
+
+          <div class="panel-header">
+            <div>
+              <h2>Spending Overview</h2>
+              <p>Last 7 days</p>
+            </div>
+
+            <span class="chart-total" id="chartTotal">₹0</span>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="spendingChart"></canvas>
+
+            <div class="chart-empty" id="chartEmpty">
+              <div class="empty-icon">⌁</div>
+              <strong>No spending yet</strong>
+              <span>Add your first expense to see your graph.</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="panel category-panel">
+
+          <div class="panel-header">
+            <div>
+              <h2>Categories</h2>
+              <p>Where your money goes</p>
+            </div>
+          </div>
+
+          <div id="categoryList" class="category-list">
+
+            <div class="empty-small">
+              No expenses yet.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RECENT -->
+
+      <div class="panel transactions-panel">
+
+        <div class="panel-header">
+
+          <div>
+            <h2>Recent Transactions</h2>
+            <p>Your latest activity</p>
+          </div>
+
+          <button class="text-btn view-all">
+            View all →
+          </button>
+
+        </div>
+
+        <div class="transaction-list" id="dashboardTransactions">
+
+          <div class="empty-state">
+            <div class="empty-icon">+</div>
+            <strong>No transactions</strong>
+            <span>Your expenses will appear here.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= TRANSACTIONS ================= -->
+
+    <section class="page" id="transactions">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">Activity</p>
+          <h1>Transactions</h1>
+          <p class="page-subtitle">
+            Every expense in one place.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="transaction-toolbar">
+
+          <div class="search-box">
+            <span>⌕</span>
+            <input
+              type="text"
+              id="searchTransactions"
+              placeholder="Search transactions..."
+            >
+          </div>
+
+          <select id="transactionFilter">
+            <option value="all">All categories</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Bills">Bills</option>
+            <option value="Other">Other</option>
+          </select>
+
+        </div>
+
+        <div class="transaction-list" id="allTransactions">
+
+          <div class="empty-state">
+            <div class="empty-icon">+</div>
+            <strong>No transactions</strong>
+            <span>Add your first expense.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ANALYTICS ================= -->
+
+    <section class="page" id="analytics">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">Insights</p>
+          <h1>Analytics</h1>
+          <p class="page-subtitle">
+            Understand your spending habits.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="analytics-stats">
+
+        <div class="summary-card">
+          <span class="summary-label">Total Spent</span>
+          <strong class="summary-value" id="analyticsTotal">₹0</strong>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Average Expense</span>
+          <strong class="summary-value" id="averageExpense">₹0</strong>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Largest Expense</span>
+          <strong class="summary-value" id="largestExpense">₹0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-grid">
+
+        <div class="panel">
+
+          <div class="panel-header">
+            <div>
+              <h2>Category Breakdown</h2>
+              <p>Your spending by category</p>
+            </div>
+          </div>
+
+          <div class="category-chart" id="analyticsCategories">
+
+            <div class="empty-state compact">
+              <strong>No data yet</strong>
+              <span>Add expenses to generate analytics.</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="panel-header">
+            <div>
+              <h2>Spending Timeline</h2>
+              <p>Your recent spending</p>
+            </div>
+          </div>
+
+          <div class="chart-wrapper analytics-chart">
+            <canvas id="analyticsChart"></canvas>
+
+            <div class="chart-empty" id="analyticsEmpty">
+              <strong>No spending data</strong>
+              <span>Your graph will appear here.</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= BUDGETS ================= -->
+
+    <section class="page" id="budgets">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">Planning</p>
+          <h1>Budgets</h1>
+          <p class="page-subtitle">
+            Set limits and stay on track.
+          </p>
+        </div>
+
+        <button class="primary-btn" id="addBudgetBtn">
+          + Add Budget
+        </button>
+
+      </div>
+
+
+      <div class="budget-summary panel">
+
+        <div>
+          <span class="summary-label">Total Budget</span>
+          <strong id="budgetsTotal">₹0</strong>
+        </div>
+
+        <div>
+          <span class="summary-label">Spent</span>
+          <strong id="budgetsSpent">₹0</strong>
+        </div>
+
+        <div>
+          <span class="summary-label">Remaining</span>
+          <strong id="budgetsRemaining">₹0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="budget-grid" id="budgetList">
+
+        <div class="empty-state">
+          <div class="empty-icon">+</div>
+          <strong>No budgets</strong>
+          <span>Create a budget to start tracking limits.</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= SETTINGS ================= -->
+
+    <section class="page" id="settings">
+
+      <div class="page-heading">
+
+        <div>
+          <p class="eyebrow">Preferences</p>
+          <h1>Settings</h1>
+          <p class="page-subtitle">
+            Customize your offline tracker.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="settings-list">
+
+        <div class="setting-item">
+
+          <div>
+            <strong>Currency</strong>
+            <span>Currency used throughout the app.</span>
+          </div>
+
+          <select id="currencySetting">
+            <option value="₹">₹ INR</option>
+            <option value="$">$ USD</option>
+            <option value="€">€ EUR</option>
+            <option value="£">£ GBP</option>
+          </select>
+
+        </div>
+
+
+        <div class="setting-item">
+
+          <div>
+            <strong>Sound Effects</strong>
+            <span>Subtle interface sounds.</span>
+          </div>
+
+          <label class="switch">
+            <input type="checkbox" id="soundToggle">
+            <span></span>
+          </label>
+
+        </div>
+
+
+        <div class="setting-item danger-setting">
+
+          <div>
+            <strong>Reset Everything</strong>
+            <span>Delete all local expenses and budgets.</span>
+          </div>
+
+          <button class="danger-btn" id="resetApp">
+            Reset App
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="offline-card">
+
+        <div class="offline-dot"></div>
+
+        <div>
+          <strong>100% Offline</strong>
+          <span>
+            Your data is stored only on this device using LocalStorage.
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= MOBILE NAV ================= -->
+
+  <nav class="mobile-nav">
+
+    <button class="nav-item active" data-page="dashboard">
+      <span>⌂</span>
+      Home
+    </button>
+
+    <button class="nav-item" data-page="transactions">
+      <span>≡</span>
+      Activity
+    </button>
+
+    <button class="mobile-add" id="mobileAddExpense">
+      +
+    </button>
+
+    <button class="nav-item" data-page="analytics">
+      <span>◒</span>
+      Analytics
+    </button>
+
+    <button class="nav-item" data-page="budgets">
+      <span>▣</span>
+      Budgets
+    </button>
+
+  </nav>
+
+
+  <!-- ================= EXPENSE MODAL ================= -->
+
+  <div class="modal" id="expenseModal">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+          <p class="eyebrow">New transaction</p>
+          <h2>Add Expense</h2>
+        </div>
+
+        <button class="close-btn" id="closeExpenseModal">
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="expenseForm">
+
+        <label>
+          Amount
+          <div class="amount-input">
+            <span id="currencySymbol">₹</span>
+            <input
+              type="number"
+              id="expenseAmount"
+              placeholder="0"
+              min="1"
+              step="0.01"
+              required
+            >
+          </div>
+        </label>
+
+
+        <label>
+          Description
+          <input
+            type="text"
+            id="expenseDescription"
+            placeholder="What did you spend on?"
+            required
+          >
+        </label>
+
+
+        <label>
+          Category
+          <select id="expenseCategory" required>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Bills">Bills</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+
+        <label>
+          Date
+          <input
+            type="date"
+            id="expenseDate"
+            required
+          >
+        </label>
+
+
+        <button type="submit" class="primary-btn full-btn">
+          Add Expense
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= BUDGET MODAL ================= -->
+
+  <div class="modal" id="budgetModal">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+          <p class="eyebrow">Planning</p>
+          <h2>Set Budget</h2>
+        </div>
+
+        <button class="close-btn" id="closeBudgetModal">
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="budgetForm">
+
+        <label>
+          Category
+          <select id="budgetCategory">
+            <option value="Overall">Overall</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Bills">Bills</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+
+        <label>
+          Budget Amount
+          <div class="amount-input">
+            <span id="budgetCurrencySymbol">₹</span>
+            <input
+              type="number"
+              id="budgetAmount"
+              placeholder="0"
+              min="1"
+              step="0.01"
+              required
+            >
+          </div>
+        </label>
+
+
+        <button class="primary-btn full-btn" type="submit">
+          Save Budget
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
