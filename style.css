@@ -91,29 +91,45 @@ button:active {
 
 .brand {
   display: flex;
-  align-items: center;
-  gap: 11px;
-
-  padding: 0 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 4px 8px 28px;
   margin-bottom: 48px;
-
-  font-size: 20px;
-  font-weight: 800;
 }
 
-.brand-mark {
-  width: 34px;
-  height: 34px;
+.brand-main {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
 
-  display: grid;
-  place-items: center;
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
 
-  border-radius: 11px;
+.brand-main > span {
+  font-size: 21px;
+  font-weight: 750;
+  letter-spacing: -0.6px;
+  color: #111;
+}
 
-  background: var(--orange);
-  color: white;
+.brand-green {
+  color: var(--green) !important;
+}
 
-  font-weight: 800;
+.brand-tagline {
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--muted);
 }
 
 .sidebar-nav {
@@ -212,6 +228,40 @@ button:active {
 
 .mobile-brand {
   display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.mobile-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mobile-brand-name {
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1;
+  color: #111;
+}
+
+.mobile-brand-name span {
+  color: var(--green);
+}
+
+.mobile-brand-tagline {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .8px;
+  color: var(--muted);
 }
 
 .primary-btn {
@@ -1258,10 +1308,13 @@ form select:focus {
     gap: 8px;
   }
 
-  .mobile-brand .brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
+  .mobile-brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .mobile-brand-name {
+    font-size: 19px;
   }
 
   .summary-grid {
@@ -1340,6 +1393,19 @@ form select:focus {
   .main {
     padding-left: 14px;
     padding-right: 14px;
+  }
+
+  .mobile-brand-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .mobile-brand-name {
+    font-size: 18px;
+  }
+
+  .mobile-brand-tagline {
+    font-size: 7px;
   }
 
   .page-heading {
@@ -1449,202 +1515,4 @@ form select:focus {
     transition-duration: .01ms !important;
   }
 
-}
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 4px 8px 28px;
-}
-
-@media (max-width: 800px) {
-  .brand-logo {
-    width: 42px;
-    height: 42px;
-  }
-}
-
-.brand span {
-    font-size: 21px;
-    font-weight: 750;
-    letter-spacing: -0.6px;
-    color: #111111;
-}
-.brand {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 7px;
-  padding: 4px 8px 28px;
-}
-
-.brand-main {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-}
-
-.brand-logo {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  border-radius: 10px;
-}
-
-.brand-main span {
-  font-size: 21px;
-  font-weight: 750;
-  letter-spacing: -0.6px;
-  color: #111;
-}
-
-.brand-tagline {
-  width: 100%;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #858585;
-}
-.brand-main span {
-  font-size: 21px;
-  font-weight: 750;
-  letter-spacing: -0.6px;
-  color: #111;
-}
-
-.brand-main span .brand-green {
-  color: #22A06B !important;
-}
-.mobile-brand {
-  display: none;
-}
-
-@media (max-width: 800px) {
-  .mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .mobile-brand img {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-    border-radius: 10px;
-  }
-
-  .mobile-brand-name {
-    font-size: 21px;
-    font-weight: 750;
-    color: #111;
-  }
-
-  .mobile-brand-name span {
-    color: #22A06B;
-  }
-
-  .mobile-brand-tagline {
-    margin-top: 2px;
-    font-size: 9px;
-    letter-spacing: .8px;
-    color: #858585;
-  }
-}
-/* ================= MOBILE BRAND ================= */
-
-.mobile-brand {
-  display: none;
-  align-items: center;
-  gap: 10px;
-}
-
-.mobile-brand-logo {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  border-radius: 10px;
-}
-
-.mobile-brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.mobile-brand-name {
-  font-size: 19px;
-  font-weight: 750;
-  line-height: 1;
-  color: #111;
-}
-
-.mobile-brand-name span {
-  color: #22A06B;
-}
-
-.mobile-brand-tagline {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: .8px;
-  color: #858585;
-}
-
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 800px) {
-
-  .mobile-brand {
-    display: flex;
-  }
-
-  .mobile-brand-logo {
-    width: 42px;
-    height: 42px;
-  }
-
-}
-.mobile-brand {
-  display: none;
-  align-items: center;
-  gap: 10px;
-}
-
-.mobile-brand-logo {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  border-radius: 10px;
-}
-
-.mobile-brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.mobile-brand-name {
-  font-size: 20px;
-  font-weight: 750;
-  color: #111;
-  line-height: 1;
-}
-
-.mobile-brand-name span {
-  color: #22A06B;
-}
-
-.mobile-brand-tagline {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  color: #858585;
-}
-
-@media (max-width: 800px) {
-  .mobile-brand {
-    display: flex;
-  }
 }
